@@ -17,7 +17,7 @@ function parseHtml_cricinfo(matchHtml) {
     var bowlersScore = {};
 
     // Batsmen:
-
+    // var innings = $('.batsman').
     for (var t = 0; t < 2; t++) {
         var bmt = $('.batsman');
         bmt = bmt[t];
