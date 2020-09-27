@@ -190,6 +190,13 @@ app.get('/satta', async(req, res)=>{
     res.send("OFF");
 });
 
+
+app.get('/sattaLagaDiya', async(req, res)=>{
+    let username = req.body.username;
+    let SLD = await User.find({username: username}, ['sattaLagaDiya']);
+    res.json(SLD);
+})
+
 async function calculatePoints() {
     // let url = "https://www.espncricinfo.com/series/8048/scorecard/1216539/chennai-super-kings-vs-delhi-capitals-7th-match-indian-premier-league-2020-21";
     let url = await SattaStatus.find({});
