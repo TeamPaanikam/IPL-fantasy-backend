@@ -22,7 +22,7 @@ const connection = require('./libs/mongo')
 const { Auth } = require('./libs/auth')
 
 
-const PORT = process.env.port || 8000
+const PORT = process.env.PORT || 8000
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }));
