@@ -6,12 +6,15 @@ const bodyParser = require('body-parser')
 const crypto = require('crypto-js')
 const cors = require('cors')
 
-const dotenv = require('dotenv')
-const result = dotenv.config()
-if (result.error) {
-    console.log(result.error)
-    throw result.error
-}
+// const dotenv = require('dotenv')
+// const result = dotenv.config()
+// if (result.error) {
+//     console.log(result.error)
+//     throw result.error
+// }
+
+require('dotenv').config()
+
 
 const points = require('./libs/points')
 
