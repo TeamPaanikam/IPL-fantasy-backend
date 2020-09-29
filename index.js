@@ -191,10 +191,11 @@ app.get('/satta', async(req, res)=>{
 });
 
 
-app.get('/sattaLagaDiya', async(req, res)=>{
+app.post('/sattaLagaDiya', async(req, res)=>{
     let username = req.body.username;
     let SLD = await User.find({username: username}, ['sattaLagaDiya']);
-    res.json(SLD);
+    console.log(SLD);
+    res.json(SLD.sattaLagaDiya);
 })
 
 async function calculatePoints() {

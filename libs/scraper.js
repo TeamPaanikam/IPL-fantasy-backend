@@ -12,56 +12,6 @@ const request = require('request')
 
 
 function parseHtml_cricinfo(matchHtml) {
-    // const $ = cheerio.load(matchHtml);
-    // var batsmenScore = {};
-    // var bowlersScore = {};
-
-    // // Batsmen:
-
-    // for (var t = 0; t < 2; t++) {
-    //     var bmt = $('.batsman');
-    //     bmt = bmt[t];
-    //     bmt = bmt.children[1];
-
-    //     for (var i = 0; i < bmt.children.length - 1; i++) {
-    //         if (i % 2 == 0) {
-    //             var obj = {};
-    //             var curr = {
-    //                 'name': bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
-    //                 'runs': bmt.childNodes[i].childNodes[2].childNodes[0].data
-    //             };
-
-    //             obj[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
-    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].runs = curr.runs;
-    //         }
-    //     }
-    // }
-
-    // // Bowlers: 
-    // for (var t = 0; t < 2; t++) {
-    //     var bwt = $('.bowler');
-
-    //     bwt = bwt[t];
-    //     bwt = bwt.children[1];
-
-
-    //     for (var i = 0; i < bwt.children.length - 1; i++) {
-    //         var obj = {};
-
-    //         var curr = {
-    //             'name': bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
-    //             'wickets': bwt.childNodes[i].childNodes[1].childNodes[0].data
-    //         };
-    //         obj[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = curr;
-
-    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
-    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].wickets = curr.wickets;
-    //     }
-    // }
-
     const $ = cheerio.load(matchHtml)
     var batsmenJson = {}
     var bowlersJson = {}
