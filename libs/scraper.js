@@ -26,7 +26,6 @@ function parseHtml_cricinfo(matchHtml) {
     for (let i = 0; i < batsmen.length; i++) {
         if (batsmen[i].children[0].children[0]) {
             if (batsmen[i].children[0].children[0].children == null) {
-                i++;
                 continue;
             }
             var name = batsmen[i].children[0].children[0].children[0].data
@@ -38,7 +37,7 @@ function parseHtml_cricinfo(matchHtml) {
             }
             var batsmanJson = {
                 name: name,
-                wickets: batsmen[i].children[2].children[0].data
+                runs: batsmen[i].children[2].children[0].data
             }
             batsmenJson[batsmanJson.name] = batsmanJson
         }
@@ -46,7 +45,6 @@ function parseHtml_cricinfo(matchHtml) {
     for (let i = 0; i < bowlers.length; i++) {
         if (bowlers[i].children[0].children[0]) {
             if (bowlers[i].children[0].children[0].children == null) {
-                i++;
                 continue;
             }
             var name = bowlers[i].children[0].children[0].children[0].data
@@ -67,7 +65,7 @@ function parseHtml_cricinfo(matchHtml) {
         batsmen: batsmenJson,
         bowlers: bowlersJson
     }
-    // console.log(scorecard)
+    console.log(scorecard)
     return scorecard;
 
 }
