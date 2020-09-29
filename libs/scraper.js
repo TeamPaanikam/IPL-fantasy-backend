@@ -12,57 +12,114 @@ const request = require('request')
 
 
 function parseHtml_cricinfo(matchHtml) {
-    const $ = cheerio.load(matchHtml);
-    var batsmenScore = {};
-    var bowlersScore = {};
+    // const $ = cheerio.load(matchHtml);
+    // var batsmenScore = {};
+    // var bowlersScore = {};
 
-    // Batsmen:
+    // // Batsmen:
 
-    for (var t = 0; t < 2; t++) {
-        var bmt = $('.batsman');
-        bmt = bmt[t];
-        bmt = bmt.children[1];
+    // for (var t = 0; t < 2; t++) {
+    //     var bmt = $('.batsman');
+    //     bmt = bmt[t];
+    //     bmt = bmt.children[1];
 
-        for (var i = 0; i < bmt.children.length - 1; i++) {
-            if (i % 2 == 0) {
-                var obj = {};
-                var curr = {
-                    'name': bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
-                    'runs': bmt.childNodes[i].childNodes[2].childNodes[0].data
-                };
+    //     for (var i = 0; i < bmt.children.length - 1; i++) {
+    //         if (i % 2 == 0) {
+    //             var obj = {};
+    //             var curr = {
+    //                 'name': bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
+    //                 'runs': bmt.childNodes[i].childNodes[2].childNodes[0].data
+    //             };
 
-                obj[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-                batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-                batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
-                batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].runs = curr.runs;
+    //             obj[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
+    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
+    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
+    //             batsmenScore[bmt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].runs = curr.runs;
+    //         }
+    //     }
+    // }
+
+    // // Bowlers: 
+    // for (var t = 0; t < 2; t++) {
+    //     var bwt = $('.bowler');
+
+    //     bwt = bwt[t];
+    //     bwt = bwt.children[1];
+
+
+    //     for (var i = 0; i < bwt.children.length - 1; i++) {
+    //         var obj = {};
+
+    //         var curr = {
+    //             'name': bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
+    //             'wickets': bwt.childNodes[i].childNodes[1].childNodes[0].data
+    //         };
+    //         obj[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = curr;
+
+    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
+    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
+    //         bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].wickets = curr.wickets;
+    //     }
+    // }
+
+    const $ = cheerio.load(matchHtml)
+    var batsmenJson = {}
+    var bowlersJson = {}
+    var batsmen = []
+    var bowlers = []
+    $(".Collapsible").find(".table.batsman tbody tr").each(function (index, element) {
+        batsmen.push(element)
+    })
+    $(".Collapsible").find(".table.bowler tbody tr").each(function (index, element) {
+        bowlers.push(element)
+    })
+    for (let i = 0; i < batsmen.length; i++) {
+        if (batsmen[i].children[0].children[0]) {
+            if (batsmen[i].children[0].children[0].children == null) {
+                i++;
+                continue;
             }
+            var name = batsmen[i].children[0].children[0].children[0].data
+            if (name.includes(' †')) {
+                name = name.split(' †')[0]
+            }
+            if (name.includes(' (c)')) {
+                name = name.split(' (c)')[0]
+            }
+            var batsmanJson = {
+                name: name,
+                wickets: batsmen[i].children[2].children[0].data
+            }
+            batsmenJson[batsmanJson.name] = batsmanJson
         }
     }
-
-    // Bowlers: 
-    for (var t = 0; t < 2; t++) {
-        var bwt = $('.bowler');
-
-        bwt = bwt[t];
-        bwt = bwt.children[1];
-
-
-        for (var i = 0; i < bwt.children.length - 1; i++) {
-            var obj = {};
-
-            var curr = {
-                'name': bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data,
-                'wickets': bwt.childNodes[i].childNodes[1].childNodes[0].data
-            };
-            obj[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = curr;
-
-            bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data] = {};
-            bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].name = curr.name;
-            bowlersScore[bwt.childNodes[i].childNodes[0].childNodes[0].childNodes[0].data].wickets = curr.wickets;
+    for (let i = 0; i < bowlers.length; i++) {
+        if (bowlers[i].children[0].children[0]) {
+            if (bowlers[i].children[0].children[0].children == null) {
+                i++;
+                continue;
+            }
+            var name = bowlers[i].children[0].children[0].children[0].data
+            if (name.includes(' †')) {
+                name = name.split(' †')[0]
+            }
+            if (name.includes(' (c)')) {
+                name = name.split(' (c)')[0]
+            }
+            var bowlerJson = {
+                name: name,
+                wickets: bowlers[i].children[4].children[0].data
+            }
+            bowlersJson[bowlerJson.name] = bowlerJson
         }
     }
+    var scorecard = {
+        batsmen: batsmenJson,
+        bowlers: bowlersJson
+    }
+    // console.log(scorecard)
+    return scorecard;
 
-    return { 'batsmen': batsmenScore, 'bowlers': bowlersScore }
 }
 
 
@@ -114,7 +171,7 @@ async function parseHtml_cricbuzz(HTML) {
         else if (index > 11 && index < 27)
             players.team2.push(player.children[0].data)
     })
-    // console.log(players)
+    console.log(players)
 }
 
 /**

@@ -235,6 +235,7 @@ async function calculatePoints() {
 calculatePoints();
 
 
+
 var checkauth = async (username, token) =>{
     let calcToken = crypto.MD5('/AzIm/' + username + '*/' + process.env.TOKEN_SALT + '/').toString();
     var result = false;
@@ -255,3 +256,5 @@ app.listen(PORT, () => {
 })
 
 setInterval(calculatePoints, 30000);
+
+
