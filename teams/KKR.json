@@ -1,0 +1,46 @@
+[
+    {
+        "name": "DA Warner",
+        "type": "bat"
+    },
+    {
+        "name": "JM Bairstow",
+        "type": "bat"
+    },
+    {
+        "name": "MK Pandey",
+        "type": "bat"
+    },
+    {
+        "name": "WP Saha",
+        "type": "wk"
+    },
+    {
+        "name": "Mohammad Nabi",
+        "type": "all"
+    },
+    {
+        "name": "Abhishek Sharma",
+        "type": "all"
+    },
+    {
+        "name": "PK Garg",
+        "type": "bowl"
+    },
+    {
+        "name": "Rashid Khan",
+        "type": "bowl"
+    },
+    {
+        "name": "B Kumar",
+        "type": "bowl"
+    },
+    {
+        "name": "T Natarajan",
+        "type": "bowl"
+    },
+    {
+        "name": "KK Ahmed",
+        "type": "bowl"
+    }
+]
