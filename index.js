@@ -203,6 +203,7 @@ async function calculatePoints() {
     userTeams.matchUrl = url;
     userTeams.users = [];
     let users = await User.find({});
+    console.log("here");
     users.forEach((satteri) => {
         var obj = {};
         obj.username = satteri.username;
@@ -216,7 +217,9 @@ async function calculatePoints() {
     });
     let pointsTable = await points.calculate(userTeams, scoring);
     Object.keys(pointsTable).forEach(async (satteri) => {
-        User.updateOne({ username: satteri }, { currScore: pointsTable[satteri].currentScore });
+        // console.log(satteri, pointsTable[satteri].currentScore)
+        let upd = await User.updateOne({ username: satteri }, { currScore: pointsTable[satteri].currentScore });
+        // console.log(upd.n)
     });
 }
 calculatePoints();
