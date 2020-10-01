@@ -1,46 +1,42 @@
 [
     {
-        "name": "SV Samson",
+        "name": "RG Sharma",
         "type": "bat"
     },
     {
-        "name": "SPD Smith",
+        "name": "SA Yadav",
         "type": "bat"
     },
     {
-        "name": "R Parag",
+        "name": "Ishan Kishan",
         "type": "bat"
     },
     {
-        "name": "RV Uthappa",
-        "type": "bat"
-    },
-    {
-        "name": "JC Butler",
+        "name": "Q de Kock",
         "type": "wk"
     },
     {
-        "name": "R Tewatia",
+        "name": "KA Pollard",
         "type": "all"
     },
     {
-        "name": "TK Curran",
+        "name": "HH Pandya",
         "type": "all"
     },
     {
-        "name": "S Gopal",
+        "name": "KH Pandya",
         "type": "bowl"
     },
     {
-        "name": "JC Archer",
+        "name": "JL Pattinson",
         "type": "bowl"
     },
     {
-        "name": "AS Rajpoot",
+        "name": "TA Boult",
         "type": "bowl"
     },
     {
-        "name": "JD Unadkat",
+        "name": "JJ Bumrah",
         "type": "bowl"
     }
 ]

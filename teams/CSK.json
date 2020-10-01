@@ -1,46 +1,46 @@
 [
     {
-        "name": "SV Samson",
+        "name": "M Vijay",
         "type": "bat"
     },
     {
-        "name": "SPD Smith",
+        "name": "F du Plessis",
         "type": "bat"
     },
     {
-        "name": "R Parag",
+        "name": "RD Gaikwad",
         "type": "bat"
     },
     {
-        "name": "RV Uthappa",
+        "name": "KM Jadhav",
         "type": "bat"
     },
     {
-        "name": "JC Butler",
+        "name": "MS Dhoni",
         "type": "wk"
     },
     {
-        "name": "R Tewatia",
+        "name": "RA Jadeja",
         "type": "all"
     },
     {
-        "name": "TK Curran",
+        "name": "SR Watson",
         "type": "all"
     },
     {
-        "name": "S Gopal",
+        "name": "SM Curran",
+        "type": "all"
+    },
+    {
+        "name": "PP Chawla",
         "type": "bowl"
     },
     {
-        "name": "JC Archer",
+        "name": "DL Chahar",
         "type": "bowl"
     },
     {
-        "name": "AS Rajpoot",
-        "type": "bowl"
-    },
-    {
-        "name": "JD Unadkat",
+        "name": "JR Hazlewood",
         "type": "bowl"
     }
 ]
