@@ -47,7 +47,6 @@ const User = mongoose.model('User', userSchema);
 
 app.post('/login', (req, res) => {
     let time = Date()
-    console.log(req.body.email + " " + req.body.password)
     firebaseAuth.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then(() => {
             let token = crypto.MD5('/AzIm/' + req.body.email + '*/' + process.env.TOKEN_SALT + '/').toString()
@@ -63,7 +62,6 @@ app.post('/login', (req, res) => {
                         }
                     })
                     let ss = await SattaStatus.find({});
-                    // console.log(ss);
                     if (ss)
                         ss = ss[0];
                     let sattaOn = false;
@@ -112,28 +110,23 @@ app.post('/createUser', async (req, res) => {
 
 app.post('/submitSatta', async (req, res) => {
     let token = req.body.token;
-    // let isValid = await Auth.findOne({ token: token }).exec();
     let isValid = await checkauth(req.body.username, token);
     if (isValid) {
-        console.log("User is authed");
         let selectedPlayers = req.body.players;
-        console.log(selectedPlayers);
         let username = req.body.username;
-        let q = await User.updateOne({ username: username }, { players: selectedPlayers });
+        let q = await User.updateOne({ username: username }, { players: selectedPlayers, sattaLagaDiya: true });
         if (q.n) {
-            return res.sendStatus(201);
+            return res.json({"status":"success"});
         }
-        return res.sendStatus(500);
+        return res.json({"status": "failed"});
     }
     else {
-        console.log("User is not authenticated");
         console.log(401);
-        return res.sendStatus(401);
+        return res.json({"status":"failed"});
     }
 });
 
 app.get('/scores', async (req, res) => {
-    console.log("Scores");
     let u = await User.find({}, ['username', 'currScore', 'cumScore']);
     res.json(u);
 });
@@ -161,9 +154,7 @@ app.post('/satta', async (req, res) => {
     if (req.body.key == process.env.ADMIN_KEY) {
         let status = req.body.status;
         if (status == 'ON' || status == 1 || status == 'on') {
-            // Reset sattaLagaDiya for all users, set satta as on
             let ress = await User.updateMany({}, { sattaLagaDiya: false });
-            console.log(ress.n);
             ress = await SattaStatus.deleteMany({});
             let sstatus = 1;
             let matchUrl = req.body.matchUrl;
@@ -182,7 +173,6 @@ app.post('/satta', async (req, res) => {
 
 app.get('/satta', async (req, res) => {
     let ss = await SattaStatus.find({});
-    // console.log(ss);
     ss = ss[0];
     if (ss.status) {
         return res.send(ss.status);
@@ -194,17 +184,14 @@ app.get('/satta', async (req, res) => {
 app.post('/sattaLagaDiya', async (req, res) => {
     let username = req.body.username;
     let SLD = await User.find({ username: username }, ['sattaLagaDiya']);
-    console.log(SLD);
-    res.json(SLD.sattaLagaDiya);
+    res.json(SLD[0]);
 })
 
 async function calculatePoints() {
-    // let url = "https://www.espncricinfo.com/series/8048/scorecard/1216539/chennai-super-kings-vs-delhi-capitals-7th-match-indian-premier-league-2020-21";
     let url = await SattaStatus.find({});
     if (!url) return;
     url = url[0];
     url = url.url;
-    // console.log(url);
     var scoring = {
         "wicket": 20,
         "run": 1,
