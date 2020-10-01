@@ -34,13 +34,13 @@ const { firebaseAuth, firestore } = require('./libs/firebase')
 const mongoose = require('mongoose');
 
 const Player = mongoose.model('Player', mongoose.Schema({ name: String, type: String }));
-const SattaStatus = mongoose.model("SattaStatus", mongoose.Schema({ status: Boolean, url : String}));
+const SattaStatus = mongoose.model("SattaStatus", mongoose.Schema({ status: Boolean, url: String }));
 
 const userSchema = new mongoose.Schema({
     username: String,
     players: [],
     currScore: Number,
-    cumScore: Number, 
+    cumScore: Number,
     sattaLagaDiya: Boolean
 });
 const User = mongoose.model('User', userSchema);
@@ -53,7 +53,7 @@ app.post('/login', (req, res) => {
             let token = crypto.MD5('/AzIm/' + req.body.email + '*/' + process.env.TOKEN_SALT + '/').toString()
             let authToken = new Auth({ token: token, date: time, valid: true })
             authToken.save()
-                .then( async savedToken => {
+                .then(async savedToken => {
                     console.log("New login detected")
                     Auth.find({}, (err, result) => {
                         if (err) {
@@ -64,15 +64,15 @@ app.post('/login', (req, res) => {
                     })
                     let ss = await SattaStatus.find({});
                     // console.log(ss);
-                    if(ss)
+                    if (ss)
                         ss = ss[0];
-                    let sattaOn  = false;
-                    if(ss.status){
+                    let sattaOn = false;
+                    if (ss.status) {
                         sattaOn = ss.status;
                     }
                     let sattaLagaDiya = false;
-                    let user = await User.findOne({username: req.body.username});
-                    if(user){
+                    let user = await User.findOne({ username: req.body.username });
+                    if (user) {
                         sattaLagaDiya = user.sattaLagaDiya;
                     }
                     res.json({ authenticated: true, token: token, sattaOn: sattaOn, sattaLagaDiya: sattaLagaDiya });
@@ -98,7 +98,7 @@ app.post('/createUser', async (req, res) => {
             username: req.body.username,
             players: [],
             currScore: 0,
-            cumScore: 0, 
+            cumScore: 0,
             sattaLagaDiya: false
         });
         newUser.save((err, resu) => {
@@ -162,17 +162,17 @@ app.post('/satta', async (req, res) => {
         let status = req.body.status;
         if (status == 'ON' || status == 1 || status == 'on') {
             // Reset sattaLagaDiya for all users, set satta as on
-            let ress = await User.updateMany({}, {sattaLagaDiya: false});
+            let ress = await User.updateMany({}, { sattaLagaDiya: false });
             console.log(ress.n);
             ress = await SattaStatus.deleteMany({});
             let sstatus = 1;
             let matchUrl = req.body.matchUrl;
-            let newStatus = new SattaStatus({status: sstatus, url: matchUrl});
+            let newStatus = new SattaStatus({ status: sstatus, url: matchUrl });
             newStatus.save();
             return res.sendStatus(201);
         }
-        else if(status == "OFF" || status == 'off' || status == 0){
-            let ress = await SattaStatus.updateMany({}, {status: false});
+        else if (status == "OFF" || status == 'off' || status == 0) {
+            let ress = await SattaStatus.updateMany({}, { status: false });
             return res.sendStatus(201);
         }
     }
@@ -180,20 +180,20 @@ app.post('/satta', async (req, res) => {
         res.sendStatus(401);
 });
 
-app.get('/satta', async(req, res)=>{
+app.get('/satta', async (req, res) => {
     let ss = await SattaStatus.find({});
     // console.log(ss);
     ss = ss[0];
-    if(ss.status){
+    if (ss.status) {
         return res.send(ss.status);
     }
     res.send("OFF");
 });
 
 
-app.post('/sattaLagaDiya', async(req, res)=>{
+app.post('/sattaLagaDiya', async (req, res) => {
     let username = req.body.username;
-    let SLD = await User.find({username: username}, ['sattaLagaDiya']);
+    let SLD = await User.find({ username: username }, ['sattaLagaDiya']);
     console.log(SLD);
     res.json(SLD.sattaLagaDiya);
 })
@@ -201,7 +201,7 @@ app.post('/sattaLagaDiya', async(req, res)=>{
 async function calculatePoints() {
     // let url = "https://www.espncricinfo.com/series/8048/scorecard/1216539/chennai-super-kings-vs-delhi-capitals-7th-match-indian-premier-league-2020-21";
     let url = await SattaStatus.find({});
-    if(!url) return;
+    if (!url) return;
     url = url[0];
     url = url.url;
     // console.log(url);
@@ -229,23 +229,22 @@ async function calculatePoints() {
     });
     let pointsTable = await points.calculate(userTeams, scoring);
     Object.keys(pointsTable).forEach(async (satteri) => {
-        if (users[satteri].currScore != pointsTable[satteri].currentScore)
-        let res = await User.updateOne({ username: satteri }, { currScore: pointsTable[satteri].currentScore });
+        User.updateOne({ username: satteri }, { currScore: pointsTable[satteri].currentScore });
     });
 }
 calculatePoints();
 
 
 
-var checkauth = async (username, token) =>{
+var checkauth = async (username, token) => {
     let calcToken = crypto.MD5('/AzIm/' + username + '*/' + process.env.TOKEN_SALT + '/').toString();
     var result = false;
-    if(calcToken != token) return false;
-    
-    
+    if (calcToken != token) return false;
+
+
     let isValid = await Auth.findOne({ token: token }).exec();
 
-    if(isValid){
+    if (isValid) {
         result = true;
     }
 

@@ -65,7 +65,6 @@ function parseHtml_cricinfo(matchHtml) {
         batsmen: batsmenJson,
         bowlers: bowlersJson
     }
-    console.log(scorecard)
     return scorecard;
 
 }
