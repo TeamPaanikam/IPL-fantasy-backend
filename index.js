@@ -203,7 +203,7 @@ async function calculatePoints() {
     userTeams.matchUrl = url;
     userTeams.users = [];
     let users = await User.find({});
-    console.log("here");
+    // console.log("here");
     users.forEach((satteri) => {
         var obj = {};
         obj.username = satteri.username;
@@ -211,7 +211,7 @@ async function calculatePoints() {
         for (let r = 0; r < satteri.players.length; r++) {
             team.push({ "name": satteri.players[r], "captain": false });
         }
-        obj.totalScore = satteri.currScore;
+        obj.totalScore = Number.parseInt(satteri.currScore);
         obj.team = team;
         userTeams.users.push(obj);
     });
