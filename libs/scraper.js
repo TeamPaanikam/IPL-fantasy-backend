@@ -47,6 +47,9 @@ function parseHtml_cricinfo(matchHtml) {
             if (bowlers[i].children[0].children[0].children == null) {
                 continue;
             }
+            else if (bowlers[i].children[4] == null){
+                continue
+            }
             var name = bowlers[i].children[0].children[0].children[0].data
             if (name.includes(' †')) {
                 name = name.split(' †')[0]

@@ -244,5 +244,4 @@ app.listen(PORT, () => {
 
 setInterval(calculatePoints, 30000);
 
-scraper.cricinfoWorker('https://www.espncricinfo.com/series/8048/scorecard/1216547/royal-challengers-bangalore-vs-mumbai-indians-10th-match-indian-premier-league-2020-21')
 

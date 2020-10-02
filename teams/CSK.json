@@ -1,14 +1,10 @@
 [
     {
-        "name": "M Vijay",
-        "type": "bat"
-    },
-    {
         "name": "F du Plessis",
         "type": "bat"
     },
     {
-        "name": "RD Gaikwad",
+        "name": "AT Rayudu",
         "type": "bat"
     },
     {
@@ -32,6 +28,10 @@
         "type": "all"
     },
     {
+        "name": "DJ Bravo",
+        "type": "all"
+    },
+    {
         "name": "PP Chawla",
         "type": "bowl"
     },
@@ -40,7 +40,7 @@
         "type": "bowl"
     },
     {
-        "name": "JR Hazlewood",
+        "name": "SN Thakur",
         "type": "bowl"
     }
 ]
