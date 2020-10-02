@@ -183,6 +183,25 @@ app.get('/satta', async (req, res) => {
 });
 
 
+app.post('/matchEnd', async(req, res)=>{
+    if(req.body.key !== process.env.ADMIN_KEY){
+        return res.sendStatus(401);
+    }
+
+    let ress = await SattaStatus.updateMany({}, { status: false, url: "" });
+
+    let users = await User.find({});
+
+    for(let satteri of users){
+        // console.log(satteri);
+        let cumScore = satteri.cumScore;
+        cumScore += satteri.currScore;
+        let upd = await User.updateOne({username : satteri.username}, {cumScore: cumScore});
+    }
+    return res.sendStatus(200);
+});
+
+
 app.post('/sattaLagaDiya', async (req, res) => {
     let username = req.body.username;
     let SLD = await User.find({ username: username }, ['sattaLagaDiya']);
