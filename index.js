@@ -47,6 +47,7 @@ const User = mongoose.model('User', userSchema);
 
 app.post('/login', (req, res) => {
     let time = Date()
+    console.log(req.body)
     firebaseAuth.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then(() => {
             let token = crypto.MD5('/AzIm/' + req.body.email + '*/' + process.env.TOKEN_SALT + '/').toString()
@@ -69,7 +70,7 @@ app.post('/login', (req, res) => {
                         sattaOn = ss.status;
                     }
                     let sattaLagaDiya = false;
-                    let user = await User.findOne({ username: req.body.username });
+                    let user = await User.findOne({ username: req.body.email })
                     if (user) {
                         sattaLagaDiya = user.sattaLagaDiya;
                     }
