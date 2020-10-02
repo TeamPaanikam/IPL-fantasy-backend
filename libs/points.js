@@ -27,6 +27,7 @@ exports.calculate = async (userTeams, scoring) => {
     let scoreboard = await scraper.cricinfoWorker(userTeams.matchUrl)
     // console.log(scoreboard)
     userTeams.users.forEach(user => {
+        // console.log(user)
         pointsTable[user.username] = {}
         pointsTable[user.username].currentScore = 0
         pointsTable[user.username].totalScore = user.totalScore
@@ -41,15 +42,19 @@ exports.calculate = async (userTeams, scoring) => {
             if(scoreboard.batsmen[playerName.name] != null){
                 // console.log("here")
                 // console.log(scoreboard.batsmen[playerName.name])
-                pointsTable[user.username].currentScore += multiplier*scoring.run*scoreboard.batsmen[playerName.name].runs
+                pointsTable[user.username].currentScore += multiplier*scoring.run*Number.parseInt(scoreboard.batsmen[playerName.name].runs)
+                // console.log("1 : ", pointsTable[user.username].currentScore,Number.parseInt(scoreboard.batsmen[playerName.name].runs) );
             }
             if(scoreboard.bowlers[playerName] != null){
-                pointsTable[user.username].currentScore += multiplier*scoring.wicket*scoreboard.bowlers[playerName.name].wickets
+                pointsTable[user.username].currentScore += multiplier*scoring.wicket*Number.parseInt(scoreboard.bowlers[playerName.name].wickets)
+                // console.log("2 ",  pointsTable[user.username].currentScore, Number.parseInt(scoreboard.bowlers[playerName.name].wickets));
+                
             }
         })
-        pointsTable[user.username].totalScore += pointsTable[user.username].currentScore
-        // console.log(pointsTable[user.username]);
+        pointsTable[user.username].totalScore += Number.parseInt(pointsTable[user.username].currentScore)
+        // console.log(user.username, pointsTable[user.username]);
     })
+    // console.log(pointsTable);
     pointsTable
     return pointsTable
 }
