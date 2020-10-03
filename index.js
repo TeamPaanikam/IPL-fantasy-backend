@@ -93,8 +93,9 @@ app.post('/login', (req, res) => {
 
 app.post('/createUser', async (req, res) => {
     if (req.body.key == process.env.ADMIN_KEY) {
+        firebaseAuth.createUserWithEmailAndPassword(req.body.email, req.body.password);
         const newUser = new User({
-            username: req.body.username,
+            username: req.body.email,
             players: [],
             currScore: 0,
             cumScore: 0,
