@@ -135,7 +135,15 @@ app.get('/scores', async (req, res) => {
 
 app.get('/players', async (req, res) => {
     let players = await Player.find({}, ['name', 'type']);
-    res.json(players);
+    let data = {};
+
+    data["players"] =  players;
+
+    let teams = await User.find({}, ['username', 'players' , 'sattaLagaDiya']);
+    // console.log(teams);
+    data["teams"] = teams;
+
+    res.json(data);
 });
 
 app.post('/players', async (req, res) => {
