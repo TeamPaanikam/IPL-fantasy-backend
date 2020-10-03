@@ -195,7 +195,7 @@ app.post('/matchEnd', async(req, res)=>{
         // console.log(satteri);
         let cumScore = satteri.cumScore;
         cumScore += satteri.currScore;
-        let upd = await User.updateOne({username : satteri.username}, {cumScore: cumScore});
+        let upd = await User.updateOne({username : satteri.username}, {currScore : 0, cumScore: cumScore});
     }
     return res.sendStatus(200);
 });
