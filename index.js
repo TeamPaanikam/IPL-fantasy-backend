@@ -275,6 +275,6 @@ app.listen(PORT, () => {
     console.log(`app league server listening on PORT: ${PORT}`)
 })
 
-setInterval(calculatePoints, 30000);
+setInterval(calculatePoints, 60000-(Math.random()*10000));
 
 
