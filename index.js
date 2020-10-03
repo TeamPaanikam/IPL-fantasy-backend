@@ -210,8 +210,9 @@ app.post('/sattaLagaDiya', async (req, res) => {
 
 async function calculatePoints() {
     let url = await SattaStatus.find({});
-    if (!url) return;
+    if (!url || !url[0] || !url[0].url) return;
     url = url[0];
+
     url = url.url;
     var scoring = {
         "wicket": 20,
