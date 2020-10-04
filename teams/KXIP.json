@@ -12,10 +12,6 @@
         "type": "bat"
     },
     {
-        "name": "KK Nair",
-        "type": "bat"
-    },
-    {
         "name": "SN Khan",
         "type": "bat"
     },
@@ -24,8 +20,12 @@
         "type": "wk"
     },
     {
-        "name": "JDS Neesham",
+        "name": "Mandeep Singh",
         "type": "all"
+    },
+    {
+        "name": "CJ Jordan",
+        "type": "bowl"
     },
     {
         "name": "Mohammed Shami",
@@ -40,7 +40,7 @@
         "type": "bowl"
     },
     {
-        "name": "M Ashwin",
+        "name": "Harpreet Brar",
         "type": "bowl"
     }
 ]
