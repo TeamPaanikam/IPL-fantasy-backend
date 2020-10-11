@@ -4,7 +4,9 @@ var userSchema = new mongoose.Schema({
     username: String, 
     players: [],
     currScore : Number,
-    cumScore : Number
+    cumScore : Number,
+    bonusProgress: Number,
+    formIndicator: Number
 });
 
 

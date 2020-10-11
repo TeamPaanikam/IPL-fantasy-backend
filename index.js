@@ -118,13 +118,13 @@ app.post('/submitSatta', async (req, res) => {
         let username = req.body.username;
         let q = await User.updateOne({ username: username }, { players: selectedPlayers, sattaLagaDiya: true });
         if (q.n) {
-            return res.json({"status":"success"});
+            return res.json({ "status": "success" });
         }
-        return res.json({"status": "failed"});
+        return res.json({ "status": "failed" });
     }
     else {
         console.log(401);
-        return res.json({"status":"failed"});
+        return res.json({ "status": "failed" });
     }
 });
 
@@ -137,9 +137,9 @@ app.get('/players', async (req, res) => {
     let players = await Player.find({}, ['name', 'type']);
     let data = {};
 
-    data["players"] =  players;
+    data["players"] = players;
 
-    let teams = await User.find({}, ['username', 'players' , 'sattaLagaDiya']);
+    let teams = await User.find({}, ['username', 'players', 'sattaLagaDiya']);
     // console.log(teams);
     data["teams"] = teams;
 
@@ -191,20 +191,47 @@ app.get('/satta', async (req, res) => {
 });
 
 
-app.post('/matchEnd', async(req, res)=>{
-    if(req.body.key !== process.env.ADMIN_KEY){
+app.post('/matchEnd', async (req, res) => {
+    if (req.body.key !== process.env.ADMIN_KEY) {
         return res.sendStatus(401);
     }
 
-    let ress = await SattaStatus.updateMany({}, { status: false, url: "" });
+    SattaStatus.updateMany({}, { status: false, url: "" });
 
     let users = await User.find({});
 
-    for(let satteri of users){
-        // console.log(satteri);
+    users.sort((a, b) => {
+        return a.currScore - b.currScore;
+    })
+
+    let rank = Math.floor(users.length / 2);
+
+    for (let satteri of users) {
+        let formIndicator = satteri.formIndicator, bonusProgress = satteri.bonusProgress
+        formIndicator += rank
+
+        if (formIndicator > 5) {
+            formIndicator = 5;
+        } else if (formIndicator < -5) {
+            formIndicator = -5
+        }
+
+        if (rank >= 0) {
+            bonusProgress += rank * 10;
+            if (bonusProgress > 100) {
+                bonusProgress = 0;
+                satteri.currScore += 40;
+            }
+        } else {
+            if (satteri.currScore != 0) {
+                satteri.currScore += Math.abs(formIndicator) * 20;
+            }
+        }
+
         let cumScore = satteri.cumScore;
         cumScore += satteri.currScore;
-        let upd = await User.updateOne({username : satteri.username}, {currScore : 0, cumScore: cumScore});
+        rank--;
+        User.updateOne({ username: satteri.username }, { currScore: 0, cumScore: cumScore, formIndicator: formIndicator, bonusProgress: bonusProgress });
     }
     return res.sendStatus(200);
 });
@@ -275,6 +302,6 @@ app.listen(PORT, () => {
     console.log(`app league server listening on PORT: ${PORT}`)
 })
 
-setInterval(calculatePoints, 60000-(Math.random()*10000));
+setInterval(calculatePoints, 60000 - (Math.random() * 10000));
 
 
