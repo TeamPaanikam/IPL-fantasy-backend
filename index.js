@@ -211,15 +211,18 @@ app.post('/matchEnd', async (req, res) => {
     users.sort((a, b) => {
         return b.currScore - a.currScore;
     })
-    let rank = Math.floor(users.length / 2);
+    let rank = users.length;
     let minScore = 10000;
     for(let satteri of users){
         if(satteri.currScore !== 0){
             if(satteri.currScore < minScore){
                 minScore = satteri.currScore;
             }
+        } else {
+            rank--;
         }
     }
+    rank = Math.floor(rank/2)
     for (let satteri of users) {
         let formIndicator = satteri.formIndicator, bonusProgress = satteri.bonusProgress, currScore = satteri.currScore
         formIndicator += rank
