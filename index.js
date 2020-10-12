@@ -41,8 +41,11 @@ const userSchema = new mongoose.Schema({
     players: [],
     currScore: Number,
     cumScore: Number,
-    sattaLagaDiya: Boolean
+    sattaLagaDiya: Boolean,
+    bonusProgress: Number,
+    formIndicator: Number
 });
+
 const User = mongoose.model('User', userSchema);
 
 app.post('/login', (req, res) => {

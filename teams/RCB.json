@@ -12,10 +12,6 @@
         "type": "bat"
     },
     {
-        "name": "Gurkeerat Singh",
-        "type": "bat"
-    },
-    {
         "name": "CH Morris",
         "type": "all"
     },
@@ -41,6 +37,10 @@
     },
     {
         "name": "YS Chahal",
+        "type": "bowl"
+    },
+    {
+        "name": "Mohammed Siraj",
         "type": "bowl"
     }
 ]
