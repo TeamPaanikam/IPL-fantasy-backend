@@ -204,7 +204,7 @@ app.post('/matchEnd', async (req, res) => {
         return res.sendStatus(401);
     }
 
-    SattaStatus.updateMany({}, { status: false, url: "" });
+    await SattaStatus.updateMany({}, { status: false, url: "" });
 
     let users = await User.find({});
 
