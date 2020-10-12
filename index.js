@@ -116,7 +116,11 @@ app.post('/createUser', async (req, res) => {
 app.post('/submitSatta', async (req, res) => {
     let token = req.body.token;
     let isValid = await checkauth(req.body.username, token);
-    if (isValid) {
+    let ss = await SattaStatus.find({});
+    if (ss) {
+        ss = ss[0]
+    }
+    if (isValid && ss.status) {
         let selectedPlayers = req.body.players;
         let username = req.body.username;
         let q = await User.updateOne({ username: username }, { players: selectedPlayers, sattaLagaDiya: true });
