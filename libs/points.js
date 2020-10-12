@@ -11,7 +11,6 @@ exports.calculate = async (userTeams, scoring) => {
     let pointsTable = {}, multiplier = 1
     let scoreboard = await scraper.cricinfoWorker(userTeams.matchUrl)
     userTeams.users.forEach(user => {
-        console.log(user.username);
         pointsTable[user.username] = {}
         pointsTable[user.username].currentScore = 0
         pointsTable[user.username].totalScore = user.totalScore

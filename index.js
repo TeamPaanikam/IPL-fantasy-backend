@@ -50,7 +50,6 @@ const User = mongoose.model('User', userSchema);
 
 app.post('/login', (req, res) => {
     let time = Date()
-    console.log(req.body)
     firebaseAuth.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then(() => {
             let token = crypto.MD5('/AzIm/' + req.body.email + '*/' + process.env.TOKEN_SALT + '/').toString()
@@ -199,7 +198,9 @@ app.get('/satta', async (req, res) => {
 
 
 app.post('/matchEnd', async (req, res) => {
-    if (req.body.key !== process.env.ADMIN_KEY) {
+    let ss = await SattaStatus.find({});
+    ss = ss[0];
+    if (req.body.key !== process.env.ADMIN_KEY || !ss.status) {
         return res.sendStatus(401);
     }
 
@@ -208,13 +209,19 @@ app.post('/matchEnd', async (req, res) => {
     let users = await User.find({});
 
     users.sort((a, b) => {
-        return a.currScore - b.currScore;
+        return b.currScore - a.currScore;
     })
-
     let rank = Math.floor(users.length / 2);
-
+    let minScore = 10000;
+    for(let satteri of users){
+        if(satteri.currScore !== 0){
+            if(satteri.currScore < minScore){
+                minScore = satteri.currScore;
+            }
+        }
+    }
     for (let satteri of users) {
-        let formIndicator = satteri.formIndicator, bonusProgress = satteri.bonusProgress
+        let formIndicator = satteri.formIndicator, bonusProgress = satteri.bonusProgress, currScore = satteri.currScore
         formIndicator += rank
 
         if (formIndicator > 5) {
@@ -227,18 +234,23 @@ app.post('/matchEnd', async (req, res) => {
             bonusProgress += rank * 10;
             if (bonusProgress > 100) {
                 bonusProgress = 0;
-                satteri.currScore += 40;
+                currScore += 40;
             }
         } else {
-            if (satteri.currScore != 0) {
-                satteri.currScore += Math.abs(formIndicator) * 20;
+            if (currScore != 0) {
+                currScore += Math.abs(formIndicator) * 20;
             }
         }
 
         let cumScore = satteri.cumScore;
-        cumScore += satteri.currScore;
+        cumScore += currScore;
         rank--;
-        User.updateOne({ username: satteri.username }, { currScore: 0, cumScore: cumScore, formIndicator: formIndicator, bonusProgress: bonusProgress });
+        if(satteri.currScore === 0){
+            cumScore += minScore;
+            formIndicator = satteri.formIndicator
+            bonusProgress = satteri.bonusProgress
+        }
+        await User.updateOne({ username: satteri.username }, { currScore: 0, cumScore: cumScore, formIndicator: formIndicator, bonusProgress: bonusProgress });
     }
     return res.sendStatus(200);
 });
