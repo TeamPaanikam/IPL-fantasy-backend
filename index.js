@@ -135,7 +135,7 @@ app.post('/submitSatta', async (req, res) => {
 });
 
 app.get('/scores', async (req, res) => {
-    let u = await User.find({}, ['username', 'currScore', 'cumScore']);
+    let u = await User.find({}, ['username', 'currScore', 'cumScore', 'bonusProgress']);
     res.json(u);
 });
 
