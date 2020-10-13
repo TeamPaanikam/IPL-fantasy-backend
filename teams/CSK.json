@@ -1,5 +1,9 @@
 [
     {
+        "name": "SR Watson",
+        "type": "bat"
+    },
+    {
         "name": "F du Plessis",
         "type": "bat"
     },
@@ -8,19 +12,11 @@
         "type": "bat"
     },
     {
-        "name": "N Jagadeesan",
-        "type": "bat"
-    },
-    {
         "name": "MS Dhoni",
         "type": "wk"
     },
     {
         "name": "RA Jadeja",
-        "type": "all"
-    },
-    {
-        "name": "SR Watson",
         "type": "all"
     },
     {
@@ -41,6 +37,10 @@
     },
     {
         "name": "SN Thakur",
+        "type": "bowl"
+    },
+    {
+        "name": "PP Chawla",
         "type": "bowl"
     }
 ]
