@@ -6,14 +6,6 @@ const bodyParser = require('body-parser')
 const crypto = require('crypto-js')
 const cors = require('cors')
 
-// const dotenv = require('dotenv')
-// const result = dotenv.config()
-// if (result.error) {
-//     console.log(result.error)
-//     throw result.error
-// }
-
-require('dotenv').config()
 
 
 const points = require('./libs/points')
@@ -237,11 +229,11 @@ app.post('/matchEnd', async (req, res) => {
             bonusProgress += rank * 10;
             if (bonusProgress > 100) {
                 bonusProgress = 0;
-                currScore += 40;
+                currScore += 100;
             }
         } else {
             if (currScore != 0) {
-                currScore += Math.abs(formIndicator) * 20;
+                currScore += Math.abs(formIndicator) * 15;
             }
         }
 

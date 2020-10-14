@@ -8,12 +8,16 @@
         "type": "bat"
     },
     {
-        "name": "BA Stokes",
-        "type": "all"
-    },
-    {
         "name": "R Parag",
         "type": "bat"
+    },
+    {
+        "name": "RV Uthappa",
+        "type": "bat"
+    },
+    {
+        "name": "BA Stokes",
+        "type": "all"
     },
     {
         "name": "JC Buttler",
@@ -28,15 +32,11 @@
         "type": "all"
     },
     {
-        "name": "RV Uthappa",
-        "type": "bat"
-    },
-    {
         "name": "JC Archer",
         "type": "bowl"
     },
     {
-        "name": "VR Aaron",
+        "name": "JD Unadkat",
         "type": "bowl"
     },
     {
