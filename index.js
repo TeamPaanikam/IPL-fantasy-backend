@@ -190,9 +190,7 @@ app.get('/satta', async (req, res) => {
 
 
 app.post('/matchEnd', async (req, res) => {
-    let ss = await SattaStatus.find({});
-    ss = ss[0];
-    if (req.body.key !== process.env.ADMIN_KEY || !ss.status) {
+    if (req.body.key !== process.env.ADMIN_KEY) {
         return res.sendStatus(401);
     }
 
@@ -203,19 +201,23 @@ app.post('/matchEnd', async (req, res) => {
     users.sort((a, b) => {
         return b.currScore - a.currScore;
     })
+
     let rank = users.length;
+    let _currScore = []
     let minScore = 10000;
-    for(let satteri of users){
-        if(satteri.currScore !== 0){
-            if(satteri.currScore < minScore){
-                minScore = satteri.currScore;
-            }
-        } else {
-            rank--;
+
+    for (let i = 0; i < users.length; i++) {
+        _currScore.push(users[i].currScore)
+        if (users[i].currScore === 0) {
+            minScore = users[i - 1].currScore;
+            rank = i;
+            break;
         }
     }
-    rank = Math.floor(rank/2)
-    for (let satteri of users) {
+
+    rank = Math.floor(rank / 2)
+    for (let i = 0; i < users.length; i++) {
+        satteri = users[i];
         let formIndicator = satteri.formIndicator, bonusProgress = satteri.bonusProgress, currScore = satteri.currScore
         formIndicator += rank
 
@@ -231,16 +233,18 @@ app.post('/matchEnd', async (req, res) => {
                 bonusProgress = 0;
                 currScore += 100;
             }
-        } else {
-            if (currScore != 0) {
-                currScore += Math.abs(formIndicator) * 15;
+        }
+
+        if (currScore != 0) {
+            if (i > 0) {
+                currScore += Math.floor((_currScore[i - 1] - _currScore[i]) * 0.7)
             }
         }
 
         let cumScore = satteri.cumScore;
         cumScore += currScore;
         rank--;
-        if(satteri.currScore === 0){
+        if (satteri.currScore === 0) {
             cumScore += minScore;
             formIndicator = satteri.formIndicator
             bonusProgress = satteri.bonusProgress
