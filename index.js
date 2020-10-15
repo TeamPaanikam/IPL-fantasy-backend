@@ -249,6 +249,7 @@ app.post('/matchEnd', async (req, res) => {
             formIndicator = satteri.formIndicator
             bonusProgress = satteri.bonusProgress
         }
+        _currScore[i] = currScore;
         await User.updateOne({ username: satteri.username }, { currScore: 0, cumScore: cumScore, formIndicator: formIndicator, bonusProgress: bonusProgress });
     }
     return res.sendStatus(200);
