@@ -226,6 +226,13 @@ app.post('/matchEnd', async (req, res) => {
         } else if (formIndicator < -5) {
             formIndicator = -5
         }
+        
+        if (currScore != 0) {
+            if (i > 0) {
+                currScore += Math.floor((_currScore[i - 1] - _currScore[i]) * 0.7)
+            }
+        }
+        _currScore[i] = currScore;
 
         if (rank >= 0) {
             bonusProgress += rank * 10;
@@ -235,11 +242,7 @@ app.post('/matchEnd', async (req, res) => {
             }
         }
 
-        if (currScore != 0) {
-            if (i > 0) {
-                currScore += Math.floor((_currScore[i - 1] - _currScore[i]) * 0.7)
-            }
-        }
+
 
         let cumScore = satteri.cumScore;
         cumScore += currScore;
@@ -249,7 +252,6 @@ app.post('/matchEnd', async (req, res) => {
             formIndicator = satteri.formIndicator
             bonusProgress = satteri.bonusProgress
         }
-        _currScore[i] = currScore;
         await User.updateOne({ username: satteri.username }, { currScore: 0, cumScore: cumScore, formIndicator: formIndicator, bonusProgress: bonusProgress });
     }
     return res.sendStatus(200);

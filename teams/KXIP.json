@@ -1,10 +1,10 @@
 [
     {
-        "name": "MA Agarwal",
+        "name": "CH Gayle",
         "type": "bat"
     },
     {
-        "name": "GJ Maxwell",
+        "name": "MA Agarwal",
         "type": "bat"
     },
     {
@@ -12,19 +12,19 @@
         "type": "bat"
     },
     {
-        "name": "P Simran Singh",
-        "type": "bat"
-    },
-    {
         "name": "KL Rahul",
         "type": "wk"
     },
     {
-        "name": "Mandeep Singh",
+        "name": "GJ Maxwell",
         "type": "all"
     },
     {
-        "name": "Mujeeb Ur Rahman",
+        "name": "DJ Hooda",
+        "type": "all"
+    },
+    {
+        "name": "M Ashwin",
         "type": "bowl"
     },
     {

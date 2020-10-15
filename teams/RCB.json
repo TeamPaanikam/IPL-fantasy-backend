@@ -12,12 +12,12 @@
         "type": "bat"
     },
     {
-        "name": "CH Morris",
-        "type": "all"
-    },
-    {
         "name": "AB de Villiers",
         "type": "wk"
+    },
+    {
+        "name": "CH Morris",
+        "type": "all"
     },
     {
         "name": "Washington Sundar",
