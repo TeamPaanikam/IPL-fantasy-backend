@@ -40,6 +40,20 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+
+app.get('/matchScores', async(req, res) =>{
+    let ss = await SattaStatus.find({});
+    ss = ss[0];
+    var matchurl;
+    if (ss.url ) {
+        matchurl = ss.url;
+        scores = await scraper.getScore(matchurl);
+        return res.send(scores)
+    }
+    return res.send("no");
+})
+
+
 app.post('/login', (req, res) => {
     let time = Date()
     firebaseAuth.signInWithEmailAndPassword(req.body.email, req.body.password)

@@ -10,6 +10,34 @@ const request = require('request')
  * @param matchHtml The HTML code
 */
 
+function parseScore(html){
+    const $ = cheerio.load(html);
+    var teams = $('.team');
+    var result = {};
+
+    teams.each((index, team)=>{
+       
+        var name = team.children[0].children[1].firstChild.children[0].data;
+        var score = team.children[1].lastChild.children[0].data;
+        var overs;
+
+        if(team.children[1].firstChild.children[2]){
+            overs = team.children[1].firstChild.children[2].data;
+        }
+       
+        result[name] = {};
+        result[name].over = overs;
+        result[name].score = score;
+    })
+    
+    return result;
+}
+
+
+exports.getScore = async(url)=>{
+    let html = await fetchHtml(url);
+    return parseScore(html);
+}
 
 function parseHtml_cricinfo(matchHtml) {
     const $ = cheerio.load(matchHtml)
