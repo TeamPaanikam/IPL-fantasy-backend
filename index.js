@@ -45,7 +45,7 @@ app.get('/matchScores', async(req, res) =>{
     let ss = await SattaStatus.find({});
     ss = ss[0];
     var matchurl;
-    if (ss.url ) {
+    if (ss.url) {
         matchurl = ss.url;
         scores = await scraper.getScore(matchurl);
         return res.send(scores)

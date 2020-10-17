@@ -16,9 +16,11 @@ function parseScore(html){
     var result = {};
 
     teams.each((index, team)=>{
-       
         var name = team.children[0].children[1].firstChild.children[0].data;
-        var score = team.children[1].lastChild.children[0].data;
+        var score ;
+        if(team.children[1].lastChild.children[0]) 
+            score = team.children[1].lastChild.children[0].data;
+
         var overs;
 
         if(team.children[1].firstChild.children[2]){
