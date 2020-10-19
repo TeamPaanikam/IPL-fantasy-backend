@@ -41,11 +41,11 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 
-app.get('/matchScores', async(req, res) =>{
+app.get('/matchScores', async (req, res) => {
     let ss = await SattaStatus.find({});
     ss = ss[0];
     var matchurl;
-    if (ss.url ) {
+    if (ss.url) {
         matchurl = ss.url;
         scores = await scraper.getScore(matchurl);
         return res.send(scores)
@@ -240,13 +240,7 @@ app.post('/matchEnd', async (req, res) => {
         } else if (formIndicator < -5) {
             formIndicator = -5
         }
-        
-        if (currScore != 0) {
-            if (i > 0) {
-                currScore += Math.floor((_currScore[i - 1] - _currScore[i]) * 0.7)
-            }
-        }
-        _currScore[i] = currScore;
+
 
         if (rank >= 0) {
             bonusProgress += rank * 10;
@@ -255,6 +249,13 @@ app.post('/matchEnd', async (req, res) => {
                 currScore += 100;
             }
         }
+
+        if (currScore != 0) {
+            if (i > 0) {
+                currScore += Math.floor((_currScore[i - 1] - _currScore[i]) * 0.7)
+            }
+        }
+        _currScore[i] = currScore;
 
 
 

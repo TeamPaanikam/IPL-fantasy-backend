@@ -24,12 +24,8 @@
         "type": "all"
     },
     {
-        "name": "DJ Bravo",
+        "name": "KM Jadhav",
         "type": "all"
-    },
-    {
-        "name": "KV Sharma",
-        "type": "bowl"
     },
     {
         "name": "DL Chahar",
@@ -42,5 +38,9 @@
     {
         "name": "PP Chawla",
         "type": "bowl"
+    },
+    {
+        "name": "JR Hazlewood",
+        "type": "bowler"
     }
 ]
