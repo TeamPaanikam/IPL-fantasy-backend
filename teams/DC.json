@@ -12,11 +12,11 @@
         "type": "bat"
     },
     {
-        "name": "AM Rahane",
+        "name": "SO Hetmyer",
         "type": "bat"
     },
     {
-        "name": "AT Carey",
+        "name": "RR Pant",
         "type": "wk"
     },
     {
@@ -29,15 +29,15 @@
     },
     {
         "name": "R Ashwin",
-        "type": "all"
+        "type": "bowl"
     },
     {
         "name": "K Rabada",
         "type": "bowl"
     },
     {
-        "name": "A Nortje",
-        "type": "bowl"
+        "name": "DR Sams",
+        "type": "all"
     },
     {
         "name": "TU Deshpande",
