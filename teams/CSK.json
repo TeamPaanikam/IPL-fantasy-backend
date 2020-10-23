@@ -1,6 +1,6 @@
 [
     {
-        "name": "SR Watson",
+        "name": "RD Gaikwad",
         "type": "bat"
     },
     {
@@ -9,6 +9,10 @@
     },
     {
         "name": "AT Rayudu",
+        "type": "bat"
+    },
+    {
+        "name": "N Jagadeesan",
         "type": "bat"
     },
     {
@@ -24,10 +28,6 @@
         "type": "all"
     },
     {
-        "name": "KM Jadhav",
-        "type": "all"
-    },
-    {
         "name": "DL Chahar",
         "type": "bowl"
     },
@@ -36,7 +36,7 @@
         "type": "bowl"
     },
     {
-        "name": "KM Jadhav",
+        "name": "Imran Tahir ",
         "type": "bowl"
     },
     {

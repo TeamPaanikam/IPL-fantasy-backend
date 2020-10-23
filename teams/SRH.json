@@ -4,10 +4,6 @@
         "type": "bat"
     },
     {
-        "name": "KS Williamson",
-        "type": "bat"
-    },
-    {
         "name": "MK Pandey",
         "type": "bat"
     },
@@ -16,7 +12,15 @@
         "type": "bat"
     },
     {
+        "name": "Abdul Samad ",
+        "type": "bat"
+    },
+    {
         "name": "V Shankar",
+        "type": "all"
+    },
+    {
+        "name": "JO Holder",
         "type": "all"
     },
     {
@@ -37,10 +41,6 @@
     },
     {
         "name": "T Natarajan",
-        "type": "bowl"
-    },
-    {
-        "name": "KK Ahmed",
         "type": "bowl"
     }
 ]
