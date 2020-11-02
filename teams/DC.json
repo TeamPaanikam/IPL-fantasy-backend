@@ -4,6 +4,10 @@
         "type": "bat"
     },
     {
+        "name": "PP Shaw",
+        "type": "bat"
+    },
+    {
         "name": "S Dhawan",
         "type": "bat"
     },
@@ -12,7 +16,7 @@
         "type": "bat"
     },
     {
-        "name": "SO Hetmyer",
+        "name": "DR Sams",
         "type": "bat"
     },
     {
@@ -37,10 +41,6 @@
     },
     {
         "name": "A Nortje",
-        "type": "bowl"
-    },
-    {
-        "name": "TU Deshpande",
         "type": "bowl"
     }
 ]
