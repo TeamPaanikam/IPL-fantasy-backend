@@ -286,8 +286,8 @@ async function calculatePoints() {
 
     url = url.url;
     var scoring = {
-        "wicket": 20,
-        "run": 1,
+        "wicket": 40,
+        "run": 2,
         "catch": 10,
         "stump": 10,
         "captainMultiplier": 1.5
